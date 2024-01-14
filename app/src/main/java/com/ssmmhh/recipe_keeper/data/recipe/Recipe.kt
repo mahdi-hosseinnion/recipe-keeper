@@ -9,6 +9,8 @@ data class Recipe(
     val id: String = UUID.randomUUID().toString(),
     val title: String,
     val image: Image,
+    val cookingTimeInMin: Int,
     val ingredients: List<String>,
-    val instructions: List<String>
+    val instructions: List<String>,
 )
+

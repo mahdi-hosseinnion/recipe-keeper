@@ -2,45 +2,39 @@
 
 package com.ssmmhh.recipe_keeper.ui.home
 
-import android.util.Log
-import android.widget.Space
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
+import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import com.ssmmhh.recipe_keeper.data.recipe.Image
+import com.ssmmhh.recipe_keeper.R
 import com.ssmmhh.recipe_keeper.data.recipe.MockRecipeRepository
 import com.ssmmhh.recipe_keeper.data.recipe.Recipe
 import com.ssmmhh.recipe_keeper.ui.common.LoadableData
@@ -85,7 +79,7 @@ fun RecipeItem(recipe: Recipe) {
     Card(
         shape = CardDefaults.elevatedShape,
         elevation = CardDefaults.elevatedCardElevation(),
-        onClick ={}
+        onClick = {}
     ) {
         AsyncImage(
             modifier = Modifier
@@ -96,12 +90,21 @@ fun RecipeItem(recipe: Recipe) {
             contentDescription = null,
         )
 
-        Column(Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(start = 8.dp,top =4.dp,bottom = 8.dp,end = 8.dp)) {
             Text(text = recipe.title, style = MaterialTheme.typography.titleMedium)
-            Text(
-                text = recipe.ingredients.joinToString { "$it" },
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Spacer(modifier = Modifier.size(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(id = R.drawable.ic_clock_24),
+                    contentDescription = stringResource(R.string.cook_time)
+                )
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(
+                    text = "${(recipe.cookingTimeInMin)} min",
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
         }
     }
 
